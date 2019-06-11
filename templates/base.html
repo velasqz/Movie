@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mdb Copy</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.theme.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% block extra_css %}
+    {% endblock %}
+</head>
+<body>
+    <div class="container">
+        <!-- As a heading -->
+        <nav class="navbar sticky-top navbar-dark bg-dark">
+            <span class="navbar-brand mb-0 h1">
+                Django Movie Database
+            </span>
+            <form class="form-inline">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-primary my-2 my-sm-0" type="submit">Go!</button>
+            </form>
+        </nav>
+        {% block content %}
+        {% endblock %}
+    </div>
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.js' %}"></script>
+
+    {% block extra_js %}
+    {% endblock %}
+</body>
+</html>

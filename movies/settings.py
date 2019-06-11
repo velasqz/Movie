@@ -37,7 +37,7 @@ INSTALLED_APPS = [
 
     'debug_toolbar',
 
-    'imdb'
+    'mdb'
 ]
 
 MIDDLEWARE = [
