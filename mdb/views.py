@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, FormView
 
+from mdb.forms import SimpleForm
 from mdb.models import MovieRate, Movie
 from django.contrib import messages
 
@@ -31,3 +32,16 @@ class MovieDetailView(LoginRequiredMixin, DetailView):
     template_name = 'mdb/detail.movie.html'
     slug_field = 'slug'
     query_pk_and_slug = False
+
+
+class MovieFormExample(FormView):
+    template_name = 'mdb/simple.form.example.html'
+    form_class = SimpleForm
+    success_url = ''
+
+    def form_invalid(self, form):
+        print(form.errors)
+        return super(MovieFormExample, self).form_invalid(form)
+
+    #def form_valid(self, form):
+    #    pass
