@@ -34,14 +34,15 @@ class MovieDetailView(LoginRequiredMixin, DetailView):
     query_pk_and_slug = False
 
 
-class MovieFormExample(FormView):
+class MovieFormExample(CreateView):
     template_name = 'mdb/simple.form.example.html'
     form_class = SimpleForm
-    success_url = ''
+    success_url = '.'
 
     def form_invalid(self, form):
-        print(form.errors)
         return super(MovieFormExample, self).form_invalid(form)
 
-    #def form_valid(self, form):
-    #    pass
+    def get_form_kwargs(self):
+        kwargs = super(MovieFormExample, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs

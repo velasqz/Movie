@@ -66,4 +66,4 @@ class MovieRate(models.Model):
         )
 
     def __str__(self):
-        return f'{self.user.username} : {self.rate}'
+        return f'{self.user} : {self.rate}'
