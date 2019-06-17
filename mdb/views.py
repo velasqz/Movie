@@ -1,9 +1,17 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, FormView
+from django.views.generic.detail import BaseDetailView
+from django.views.generic.list import BaseListView
+from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveAPIView
+from rest_framework.renderers import JSONRenderer
+from rest_framework.views import APIView
 
+from mdb.api.serializers import MovieSerializer, MovieRateSerializer
 from mdb.forms import SimpleForm
 from mdb.models import MovieRate, Movie
 from django.contrib import messages
+
 
 class HomeView(ListView):
     template_name = 'mdb/home.html'
@@ -46,3 +54,24 @@ class MovieFormExample(CreateView):
         kwargs = super(MovieFormExample, self).get_form_kwargs()
         kwargs.update({'user': self.request.user})
         return kwargs
+
+
+class MovieListView(ListAPIView):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
+
+
+class MovieDetailView(RetrieveAPIView):
+    queryset = Movie.objects.all()
+    serializer_class = MovieSerializer
+    lookup_field = 'slug'
+
+
+class MovieRateListView(ListAPIView):
+    queryset = MovieRate.objects.all()
+    serializer_class = MovieRateSerializer
+
+
+class MovieRateDetailView(RetrieveAPIView):
+    queryset = MovieRate.objects.all()
+    serializer_class = MovieRateSerializer
