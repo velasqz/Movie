@@ -1,13 +1,11 @@
-from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
-
 from django.db import models
+from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse_lazy
-
-from mdb.choices import THRILLER
 from mdb.queryset import MovieRateQueryset
-from .choices import MOVIE_GENRE
+from .choices import movie_genre
+import uuid
 
 
 def movie_directory_path(instance, filename):
@@ -20,10 +18,13 @@ class Movie(models.Model):
     poster = models.ImageField(upload_to=movie_directory_path)
     detail = models.TextField(null=True, blank=True)
     trailer_url = models.URLField(null=True, blank=True)
-    genre = models.CharField(max_length=25, choices=MOVIE_GENRE, default=THRILLER)
+    genre = models.CharField(max_length=25, choices=movie_genre)
     original_language = models.CharField(max_length=2)
-    country = models.CharField(max_length=200)
-    release_date = models.DateField(null=True)
+    relase_date = models.DateField(null=True)
+    country = models.ForeignKey('country', null=True,  on_delete=models.SET_NULL)
+    directors = models.ManyToManyField('MovieDirector')
+    actors =  models.ManyToManyField('MovieActor')
+    release_date = models.DateField(null=True, blank=True)
     slug = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
@@ -32,38 +33,54 @@ class Movie(models.Model):
     def get_absolute_url(self):
         return reverse_lazy('movie-detail', args=(self.title, ))
 
-#    def save(self, force_insert=False, force_update=False, using=None,
-#             update_fields=None):
-#        self.slug = slugify(self.title)
-#        super(Movie, self).save(force_insert=force_insert, force_update=force_update, using=using,
-#                                update_fields=update_fields)
+
+class MovieRate(models.Model):
+    rating = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)])
+    movie = models.ForeignKey('Movie', null=False, on_delete=models.CASCADE)
+    user = models.ForeignKey(get_user_model(), null=True, on_delete=models.SET_NULL)
+    comment = models.TextField(null=False, max_length=150)
+
+    objects = MovieRateQueryset.as_manager()
+
+    def __str__(self):
+        return 'Movie: {}'.format(self.movie.title)
 
 
 class MovieActor(models.Model):
-    name = models.CharField(max_length=60)
-    age = models.PositiveIntegerField()
+    name = models.CharField(max_length=60, unique=True, null=False)
+    age = models.PositiveIntegerField(null=False)
 
     def __str__(self):
         return self.name
 
 
 class MovieDirector(models.Model):
-    name = models.CharField(max_length=60)
-    age = models.PositiveIntegerField()
-
-
-class MovieRate(models.Model):
-    rate = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(5)])
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
-    user = models.ForeignKey(get_user_model(), null=True, on_delete=models.SET_NULL)
-
-    objects = MovieRateQueryset.as_manager()
-
-    class Meta:
-        unique_together = ('user', 'movie')
-        permissions = (
-            ('can_vote_two_times', 'Can vote two times'),
-        )
+    name = models.CharField(max_length=60, unique=True, null=False)
+    age = models.PositiveIntegerField(null=False)
 
     def __str__(self):
-        return f'{self.user} : {self.rate}'
+        return self.name
+
+
+class Genre(models.Model):
+    name = models.CharField(max_length=20, unique=True, null=False)
+
+    def __str__(self):
+        return self.name
+
+
+class Language(models.Model):
+    name = models.CharField(max_length=20, unique=True, null=False)
+
+    def __str__(self):
+        return self.name
+
+class Country(models.Model):
+    name = models.CharField(max_length=30, unique=True, null=False)
+
+    def __str__(self):
+        return self.name
+
+class UserToken(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, on_delete=models.SET_NULL)
+    token = models.UUIDField(default=uuid.uuid4)

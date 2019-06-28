@@ -1,0 +1,307 @@
+
+# Creado por https://www.gitignore.io/api/linux,django,python,virtualenv,pycharm+all
+# Editar en https://www.gitignore.io/?templates=linux,django,python,virtualenv,pycharm+all
+
+### Django ###
+*.Iniciar sesión
+*.maceta
+* .pyc
+__pycache __ /
+local_settings.py
+db.sqlite3
+medios de comunicación
+
+# Si su proceso de compilación incluye la ejecución de collectstatic, es probable que no necesite o desee incluir staticfiles /
+# en tu repositorio Git. Actualiza y descomenta la siguiente línea en consecuencia.
+# <django-project-name> / staticfiles /
+
+### Django.Python Stack ###
+# Byte-compiled / optimized / DLL files
+* .py [cod]
+* $ py.class
+
+# Extensiones C
+*.asi que
+
+# Distribución / embalaje
+.Pitón
+construir/
+desarrollar-huevos /
+dist /
+descargas /
+huevos/
+.huevos/
+lib /
+lib64 /
+partes/
+sdist /
+var /
+ruedas /
+pip-wheel-metadata /
+compartir / python-wheels /
+* .egg-info /
+.installed.cfg
+*.huevo
+MANIFIESTO
+
+# PyInstaller
+# Por lo general, estos archivos están escritos por una secuencia de comandos python desde una plantilla
+# antes de que PyInstaller compile el archivo ejecutable, para insertar datos de fecha / otros en él.
+*.manifiesto
+*.especulación
+
+# Registros del instalador
+pip-log.txt
+pip-delete-este-directorio.txt
+
+# Test de unidad / informes de cobertura.
+htmlcov /
+.tox /
+.nox /
+.cobertura
+.cobertura.*
+.cache
+nosetests.xml
+cobertura.xml
+*.cubrir
+.hipótesis/
+.pytest_cache /
+
+# Traducciones
+*.mes
+
+# Django cosas:
+
+# Cosas del matraz:
+ejemplo/
+.webassets-cache
+
+# Cosas Scrapy:
+.scrapy
+
+# Documentación de Sphinx
+docs / _build /
+
+# PyBuilder
+objetivo/
+
+Cuaderno # Jupyter
+.ipynb_checkpoints
+
+# IPython
+profile_default /
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pipenv
+# De acuerdo con pypa / pipenv # 598, se recomienda incluir Pipfile.lock en el control de versión.
+# Sin embargo, en caso de colaboración, si tiene dependencias o dependencias específicas de la plataforma
+# no teniendo soporte multiplataforma, pipenv puede instalar dependencias que no funcionan, o no
+# instalar todas las dependencias necesarias.
+# Pipfile.lock
+
+# apio batir archivo de programación
+horario de apio
+
+# SageMath analizó archivos
+* .sage.py
+
+# Ambientes
+.env
+.venv
+env
+venv /
+ENV /
+env.bak /
+venv.bak /
+
+# Configuración del proyecto Spyder
+.spyderproject
+.spyproject
+
+# Ajustes de proyecto de cuerda
+.proyecto
+
+# mkdocs documentación
+/sitio
+
+# mypy
+.mypy_cache /
+.dmypy.json
+dmypy.json
+
+# Corrector de tipo pira
+.pira/
+
+### Linux ###
+* ~
+
+# archivos temporales que se pueden crear si un proceso aún tiene un identificador abierto de un archivo eliminado
+.fuse_hidden *
+
+# KDE preferencias de directorio
+.directorio
+
+# Carpeta de basura de Linux que puede aparecer en cualquier partición o disco
+.Basura-*
+
+# .nfs archivos se crean cuando se elimina un archivo abierto, pero todavía se está accediendo
+.nfs *
+
+### PyCharm + todo ###
+# Cubre los IDE de JetBrains: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio y WebStorm
+# Referencia: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
+
+# Cosas específicas del usuario
+.idea / ** / workspace.xml
+.idea / ** / tasks.xml
+.idea / ** / usage.statistics.xml
+.idea / ** / diccionarios
+.idea / ** / shelf
+
+# Archivos generados
+.idea / ** / contentModel.xml
+
+# Archivos sensibles o de alta rotación
+.idea / ** / dataSources /
+.idea / ** / dataSources.ids
+.idea / ** / dataSources.local.xml
+.idea / ** / sqlDataSources.xml
+.idea / ** / dynamic.xml
+.idea / ** / uiDesigner.xml
+.idea / ** / dbnavigator.xml
+
+# Gradle
+.idea / ** / gradle.xml
+.idea / ** / bibliotecas
+
+# Gradle y Maven con auto-importación
+# Al usar Gradle o Maven con la importación automática, debe excluir los archivos de módulo,
+# ya que serán recreados, y pueden causar abandono. Descomentar si usa
+# auto-import.
+# .idea / modules.xml
+# .idea / *. iml
+# .idea / modules
+
+# CMake
+cmake-build - * /
+
+# Mongo Explorer plugin
+.idea / ** / mongoSettings.xml
+
+# Formato de proyecto basado en archivos
+* .iws
+
+# IntelliJ
+afuera/
+
+# mpeltonen / sbt-idea plugin
+.idea_modules /
+
+# JIRA plugin
+atlassian-ide-plugin.xml
+
+# Cursivo Clojure plugin
+.idea / replstate.xml
+
+# Crashlytics plugin (para Android Studio e IntelliJ)
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Cliente de descanso basado en editor
+.idea / httpRequests
+
+# Android studio 3.1+ archivo de caché serializado
+.idea / caches / build_file_checksums.ser
+
+# Plantillas de JetBrains
+** ___ jb_tmp___
+
+### PyCharm + todos los parches ###
+# Ignora toda la carpeta .idea y todos los archivos .iml
+# Ver https://github.com/joeblau/gitignore.io/issues/186 y https://github.com/joeblau/gitignore.io/issues/360
+
+.idea/
+
+# Motivo: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-249601023
+
+* .iml
+modules.xml
+.idea / misc.xml
+* .ipr
+
+# Sonarlint plugin
+.idea / sonarlint
+
+### Python ###
+# Byte-compiled / optimized / DLL files
+
+# Extensiones C
+
+# Distribución / embalaje
+
+# PyInstaller
+# Por lo general, estos archivos están escritos por una secuencia de comandos python desde una plantilla
+# antes de que PyInstaller compile el archivo ejecutable, para insertar datos de fecha / otros en él.
+
+# Registros del instalador
+
+# Test de unidad / informes de cobertura.
+
+# Traducciones
+
+# Django cosas:
+
+# Cosas del matraz:
+
+# Cosas Scrapy:
+
+# Documentación de Sphinx
+
+# PyBuilder
+
+Cuaderno # Jupyter
+
+# IPython
+
+# pyenv
+
+# pipenv
+# De acuerdo con pypa / pipenv # 598, se recomienda incluir Pipfile.lock en el control de versión.
+# Sin embargo, en caso de colaboración, si tiene dependencias o dependencias específicas de la plataforma
+# no teniendo soporte multiplataforma, pipenv puede instalar dependencias que no funcionan, o no
+# instalar todas las dependencias necesarias.
+
+# apio batir archivo de programación
+
+# SageMath analizó archivos
+
+# Ambientes
+
+# Configuración del proyecto Spyder
+
+# Ajustes de proyecto de cuerda
+
+# mkdocs documentación
+
+# mypy
+
+# Corrector de tipo pira
+
+### VirtualEnv ###
+# Virtualenv
+# http://iamzed.com/2009/05/07/a-primer-on-virtualenv/
+[Bb] en
+[Incluyo
+[Ll] ib
+[Ll] ib64
+[Ll] ocal
+[Ss] criptas
+pyvenv.cfg
+pip-selfcheck.json
+
+# Fin de https://www.gitignore.io/api/linux,django,python,virtualenv,pycharm+all

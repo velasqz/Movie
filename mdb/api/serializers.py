@@ -1,12 +1,12 @@
 from django.urls import reverse
 from rest_framework import serializers
 
-from mdb.models import MovieRate
+from mdb.models import MovieRate, Movie
 
 
 class MovieSerializer(serializers.Serializer):
     title = serializers.CharField()
-    release_date = serializers.DateField(input_formats=['%d/%m/%Y'])
+    release_date = serializers.DateField()
     duration = serializers.IntegerField()
     rate = serializers.SerializerMethodField(method_name='get_movie_rate')
 
@@ -26,3 +26,49 @@ class MovieRateSerializer(serializers.ModelSerializer):
     class Meta:
         model = MovieRate
         fields = ('movie', 'user', 'rate', 'id')
+
+class MovieRateSerializerCreate(serializers.ModelSerializer):
+
+    class Meta:
+        model=MovieRate
+        fields = ('movie','user','rate','comment')
+
+
+class MovieRateSerializerUpdate(serializers.ModelSerializer):
+
+    class Meta:
+        model=MovieRate
+        fields = ('movie','rate','comment')
+
+
+class MovieRateSerializerDelete(serializers.ModelSerializer):
+
+    class Meta:
+        model = MovieRate
+        field = ('id')
+
+
+class MovieRateSerializerAll(serializers.ModelSerializer):
+    class Meta:
+        model = MovieRate
+        fields = '_all_'
+
+class MovieSerializer(serializers.ModelSerializer):
+    pk = serializers.IntegerField(source='id')
+    poster = serializers.ImageField(read_only=True)
+    trailer_url = serializers.URLField(required=False)
+    class Meta:
+        model = Movie
+        fields = (
+
+            'title'
+            'duration'
+            'poster'
+            'detail'
+            'trailer_url'
+            'genre'
+            'original_language'
+            'country'
+            'release_date',
+            'pk'
+        )

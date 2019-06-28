@@ -1,28 +1,116 @@
 from django import forms
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
-from mdb.models import MovieRate
+from mdb.models import MovieRate, Movie, UserToken
+from mdb.choices import movie_genre, movie_rating
 
 
-class SimpleForm(forms.ModelForm):
-    rate = forms.IntegerField()
+class UserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = [
+            'username',
+            'password1',
+            'password2',
+        ]
 
+        label = {
+            'username': 'Username',
+            'password1': 'Password',
+            'password2': 'Password Confirmation',
+        }
+
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'password1': forms.PasswordInput(attrs={'class': 'form-control'}),
+            'password2': forms.PasswordInput(attrs={'class': 'form-control'}),
+        }
+
+
+class MoviesForm(forms.ModelForm):
+    class Meta:
+        model = Movie
+        fields = [
+            'title',
+            'duration',
+            'poster',
+            'detail',
+            'trailer_url',
+            'genre',
+            'original_language',
+            'release_date',
+            'country',
+            'directors',
+            'actors'
+        ]
+
+        labels = {
+            'title': 'Title',
+            'duration': 'Duration',
+            'poster': 'Poster',
+            'detail': 'Detail',
+            'trailer_url': 'Trailer url',
+            'genre': 'Genre',
+            'original_language': 'Original language',
+            'release_date': 'Release Date',
+            'country': 'Country',
+            'directors': 'Directors',
+            'actors': 'Actors'
+        }
+
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'duration': forms.NumberInput(attrs={'class': 'form-control'}),
+            'detail': forms.Textarea(attrs={'class': 'form-control'}),
+            'genre': forms.Select(choices=movie_genre, attrs={'class': 'form-control'}),
+            'original_language': forms.Select(attrs={'class': 'form-control'}),
+            'release_date': forms.DateInput(attrs={'class': 'form-control'}),
+            'country': forms.Select(attrs={'class': 'form-control'}),
+            'directors': forms.SelectMultiple(attrs={'class': 'form-control'}),
+            'actors': forms.SelectMultiple(attrs={'class': 'form-control'}),
+        }
+
+class RatingMoviesForm(forms.ModelForm):
     class Meta:
         model = MovieRate
-        fields = ('rate', 'movie')
+        fields = [
+            'movie',
+            'rating',
+            'comment'
+        ]
 
-    def __init__(self, user, *args, **kwargs):
-        self.user = user
-        super(SimpleForm, self).__init__(*args, **kwargs)
+        labels = {
+            'movie': 'Movie',
+            'rating': 'Rating',
+            'comment': 'Comment'
+        }
 
-    def clean(self):
-        data = super(SimpleForm, self).clean()
-        movie = data.get('movie')
-        if MovieRate.objects.filter(user=self.user, movie=movie).exists():
-            raise ValidationError(f'Movie rate with user {self.user.username} and movie {movie.title} already exists')
-        return data
+        widgets = {
+            'movie': forms.Select(attrs={'class': 'form-control'}),
+            'rating': forms.Select(choices=movie_rating, attrs={'class': 'form-control'}),
+            'comment': forms.Textarea(attrs={'class': 'form-control'}),
+        }
 
-    def save(self, commit=True):
-        instance = super(SimpleForm, self).save(commit=False)
-        instance.user = self.user
-        instance.save()
-        return instance
+
+class UserTokenForm(forms.ModelForm):
+    class Meta:
+        model = UserToken
+        fields = [
+            'user',
+        ]
+
+
+class QueryMovieForm(forms.Form):
+    query = forms.CharField(max_length=40)
+
+
+class SearchMovie(forms.Form):
+
+    types = (
+        ('t' , 'Unique'),
+        ('s' , 'All'),
+    )
+
+    search_for = forms.ChoiceField(choices=types)
+    search = forms.CharField(label='Search', max_length=100)
